@@ -1,0 +1,3 @@
+import plotly
+
+plotly.plot

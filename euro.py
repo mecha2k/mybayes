@@ -1,9 +1,10 @@
 from __future__ import print_function
 
-import thinkbayes
+import mybayes
+import myplots
 
 
-class Euro(thinkbayes.Suite):
+class Euro(mybayes.Suite):
     def Likelihood(self, data, hypo):
         x = hypo / 100.0
         if data == "H":
@@ -12,7 +13,7 @@ class Euro(thinkbayes.Suite):
             return 1 - x
 
 
-class Euro2(thinkbayes.Suite):
+class Euro2(mybayes.Suite):
     def Likelihood(self, data, hypo):
         x = hypo / 100.0
         heads, tails = data
@@ -35,33 +36,33 @@ def TrianglePrior():
     return suite
 
 
-# def RunUpdate(suite, heads=140, tails=110):
-#     dataset = "H" * heads + "T" * tails
+def RunUpdate(suite, heads=140, tails=110):
+    dataset = "H" * heads + "T" * tails
 
-#     for data in dataset:
-#         suite.Update(data)
-
-
-# def Summarize(suite):
-#     print(suite.Prob(50))
-
-#     print("MLE", suite.MaximumLikelihood())
-
-#     print("Mean", suite.Mean())
-#     print("Median", thinkbayes.Percentile(suite, 50))
-
-#     print("5th %ile", thinkbayes.Percentile(suite, 5))
-#     print("95th %ile", thinkbayes.Percentile(suite, 95))
-
-#     print("CI", thinkbayes.CredibleInterval(suite, 90))
+    for data in dataset:
+        suite.Update(data)
 
 
-# def PlotSuites(suites, root):
-#     thinkplot.Clf()
-#     thinkplot.PrePlot(len(suites))
-#     thinkplot.Pmfs(suites)
+def Summarize(suite):
+    print(suite.Prob(50))
 
-#     thinkplot.Save(root=root, xlabel="x", ylabel="Probability", formats=["pdf", "eps"])
+    print("MLE", suite.MaximumLikelihood())
+
+    print("Mean", suite.Mean())
+    print("Median", mybayes.Percentile(suite, 50))
+
+    print("5th %ile", mybayes.Percentile(suite, 5))
+    print("95th %ile", mybayes.Percentile(suite, 95))
+
+    print("CI", mybayes.CredibleInterval(suite, 90))
+
+
+def PlotSuites(suites, root):
+    myplots.Clf()
+    myplots.PrePlot(len(suites))
+    myplots.Pmfs(suites)
+
+    myplots.Save(root=root, xlabel="x", ylabel="Probability", formats=["pdf", "eps"])
 
 
 def main():
@@ -71,18 +72,18 @@ def main():
     suite2 = TrianglePrior()
     suite2.name = "triangle"
 
-    # PlotSuites([suite1, suite2], "euro2")
+    PlotSuites([suite1, suite2], "euro2")
 
-    # # update
-    # RunUpdate(suite1)
-    # Summarize(suite1)
+    # update
+    RunUpdate(suite1)
+    Summarize(suite1)
 
-    # RunUpdate(suite2)
-    # Summarize(suite2)
+    RunUpdate(suite2)
+    Summarize(suite2)
 
-    # # plot the posteriors
-    # PlotSuites([suite1], "euro1")
-    # PlotSuites([suite1, suite2], "euro3")
+    # plot the posteriors
+    PlotSuites([suite1], "euro1")
+    PlotSuites([suite1, suite2], "euro3")
 
 
 if __name__ == "__main__":
