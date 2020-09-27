@@ -448,7 +448,7 @@ def Save(root=None, formats=None, **options):
     Config(**options)
 
     if formats is None:
-        formats = ["pdf", "eps"]
+        formats = ["png"]
 
     try:
         formats.remove("plotly")
@@ -463,8 +463,12 @@ def Save(root=None, formats=None, **options):
         Clf()
 
 
-def SaveFormat(root, fmt="eps"):
-    filename = "%s.%s" % (root, fmt)
+def SaveFormat(root, fmt="png"):
+    import os
+    resdir = os.getcwd() + '/results'
+    if not os.path.isdir(resdir):
+        os.makedirs(resdir)
+    filename = f'{resdir}/{root}.{fmt}'
     print("Writing", filename)
     pyplot.savefig(filename, format=fmt, dpi=300)
 

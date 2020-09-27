@@ -62,7 +62,7 @@ def PlotSuites(suites, root):
     myplots.PrePlot(len(suites))
     myplots.Pmfs(suites)
 
-    myplots.Save(root=root, xlabel="x", ylabel="Probability", formats=["pdf", "eps"])
+    myplots.Save(root=root, xlabel="x", ylabel="Probability", formats=["png"])
 
 
 def main():
