@@ -108,8 +108,9 @@ def main():
     print(sorted(suite.Items()))
 
     suite = MandM("AB")
-    suite.Update(("bag1", "yellow"))
-    suite.Update(("bag2", "green"))
+    suite.Update(("bag2", "yellow"))
+    suite.Update(("bag1", "green"))
+    suite.Update(("bag1", "orange"))
     suite.Print()
 
 
