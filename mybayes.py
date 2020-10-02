@@ -239,7 +239,7 @@ class _DictWrapper(object):
     def SetDict(self, d):
         self.d = d
 
-    def Values(self):
+    def Keys(self):
         return self.d.keys()
 
     def Items(self):
@@ -434,19 +434,19 @@ class Hist(_DictWrapper):
 
 class Suite(Pmf, metaclass=ABCMeta):
     def Update(self, data):
-        for hypo in list(self.Values()):
+        for hypo in list(self.Keys()):
             like = self.Likelihood(data, hypo)
             self.Mult(hypo, like)
         return self.Normalize()
 
     def LogUpdate(self, data):
-        for hypo in self.Values():
+        for hypo in self.Keys():
             like = self.LogLikelihood(data, hypo)
             self.Incr(hypo, like)
 
     def UpdateSet(self, dataset):
         for data in dataset:
-            for hypo in self.Values():
+            for hypo in self.Keys():
                 like = self.Likelihood(data, hypo)
                 self.Mult(hypo, like)
         return self.Normalize()

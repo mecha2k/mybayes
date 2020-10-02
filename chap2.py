@@ -19,7 +19,7 @@ class Cookie(Pmf):
         self.Normalize()
 
     def Update(self, data):
-        for hypo in self.Values():
+        for hypo in self.Keys():
             like = self.Likelihood(hypo, data)
             self.Mult(hypo, like)
         self.Normalize()
@@ -51,7 +51,7 @@ class Monty(Pmf):
             return 1
 
     def Update(self, data):
-        for hypo in self.Values():
+        for hypo in self.Keys():
             like = self.Likelihood(hypo, data)
             self.Mult(hypo, like)
         self.Normalize()
