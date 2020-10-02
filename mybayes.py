@@ -8,6 +8,7 @@ import numpy
 import random
 
 import scipy.stats
+from abc import ABCMeta, abstractmethod
 from scipy.special import erf, erfinv, gammaln
 
 ROOT2 = math.sqrt(2)
@@ -37,7 +38,7 @@ class UnimplementedMethodException(Exception):
     pass
 
 
-class Cdf(object):
+class Cdf(object, metaclass=ABCMeta):
     def __init__(self, xs=None, ps=None, name=""):
         self.xs = [] if xs is None else xs
         self.ps = [] if ps is None else ps
@@ -116,7 +117,6 @@ class Cdf(object):
         return interval
 
     def _Round(self, multiplier=1000.0):
-        # TODO(write this method)
         raise UnimplementedMethodException()
 
     def Render(self):
@@ -432,7 +432,7 @@ class Hist(_DictWrapper):
             self.Incr(val, -freq)
 
 
-class Suite(Pmf):
+class Suite(Pmf, metaclass=ABCMeta):
     def Update(self, data):
         for hypo in list(self.Values()):
             like = self.Likelihood(data, hypo)
@@ -477,7 +477,7 @@ class Suite(Pmf):
             self.Set(hypo, Probability(odds))
 
 
-class Pdf(object):
+class Pdf(object, metaclass=ABCMeta):
     def Density(self, x):
         raise UnimplementedMethodException()
 

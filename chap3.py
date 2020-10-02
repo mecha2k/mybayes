@@ -10,6 +10,10 @@ class Dice(Suite):
             return 1.0 / hypo
 
 
+class Train(Dice):
+    pass
+
+
 def Mean(suite):
     total = 0
     for hypo, prob in suite.Items():
@@ -19,7 +23,7 @@ def Mean(suite):
 
 def MakePosterior(high, dataset):
     hypos = range(1, high + 1)
-    suite = Dice(hypos)
+    suite = Train(hypos)
     suite.name = str(high)
 
     for data in dataset:
