@@ -43,6 +43,8 @@ class _Brewer(object):
         [0, 2, 3, 5, 6],
         [0, 2, 3, 4, 5, 6],
         [0, 1, 2, 3, 4, 5, 6],
+        [0, 1, 2, 3, 4, 5, 6, 7],
+        [0, 1, 2, 3, 4, 5, 6, 7, 8],
     ]
 
     @classmethod
@@ -149,7 +151,7 @@ def _UnderrideColor(options):
 def Plot(obj, ys=None, style="", **options):
     options = _UnderrideColor(options)
     label = getattr(obj, "name", "_nolegend_")
-    options = _Underride(options, linewidth=3, alpha=0.8, label=label)
+    options = _Underride(options, linewidth=2, alpha=0.8, label=label)
 
     xs = obj
     if ys is None:
@@ -465,10 +467,11 @@ def Save(root=None, formats=None, **options):
 
 def SaveFormat(root, fmt="png"):
     import os
-    resdir = os.getcwd() + '/results'
+
+    resdir = os.getcwd() + "/results"
     if not os.path.isdir(resdir):
         os.makedirs(resdir)
-    filename = f'{resdir}/{root}.{fmt}'
+    filename = f"{resdir}/{root}.{fmt}"
     print("Writing", filename)
     pyplot.savefig(filename, format=fmt, dpi=300)
 

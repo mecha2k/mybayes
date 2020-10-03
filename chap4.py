@@ -111,11 +111,21 @@ def main():
     PlotSuites([suite1], "euro1")
     PlotSuites([suite1, suite2], "euro3")
 
+    incr = 50
+    suiteSet = []
+    for i in range(5):
+        suite1 = UniformPrior()
+        suite1.name = f"uniform: {(i+1)*incr}"
+        RunUpdate(suite1, heads=(i + 1) * incr, tails=(i + 1) * (incr - 2))
+        suiteSet.append(suite1)
+
+    PlotSuites(suiteSet, "euro5")
+
     suite = Version3()
     print(suite.Mean())
 
     myplots.Pmf(suite)
-    myplots.Show(xlabel="x", ylabel="Probability")
+    # myplots.Show(xlabel="x", ylabel="Probability")
 
     data = 140, 110
     data = 8, 12
